@@ -18,8 +18,11 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - name: CHeckout
+    - name: Checkout
       uses: actions/checkout@v2
+    - name: Get short SHA
+      id: slug
+      run: echo "::set-output name=sha8::$(echo ${GITHUB_SHA} | cut -c1-8)"
     - name: Pip Installer
       uses: BSFishy/pip-action@v1
       with:
@@ -34,7 +37,7 @@ jobs:
       with:
         add: ./doc_dst
         author_name: Doc generating bot
-        message: Documentation rebuild after ${{env.GITHUB_SHA}}
+        message: Documentation rebuild after ${{ steps.slug.outputs.sha8 }}
         ref: doc2  
       env:
         # This is necessary in order to push a commit to the repo
