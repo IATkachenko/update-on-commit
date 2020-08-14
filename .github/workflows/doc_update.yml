@@ -34,9 +34,9 @@ jobs:
       with:
         add: ./doc_dst
         author_name: Doc generating bot
-        message: Documentation rebuild after $GITHUB_SHA 
+        message: Documentation rebuild after ${{env.GITHUB_SHA}}
         ref: doc2  
       env:
         # This is necessary in order to push a commit to the repo
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this line unchanged
-        GITHUB_SHA: ${{GITHUB_SHA}}
+    
